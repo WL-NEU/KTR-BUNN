@@ -8,9 +8,6 @@
 - Tensorboard 
 - tensorpack
 
-## GPU Version
-
-- 1080ti
 
 
 
