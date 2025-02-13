@@ -65,9 +65,9 @@ def transform(data, label):
 
 
 #源域训练数据构建
-Scouce_train_path = r'D:\浏览器下载\wdcnn_bearning_fault_diagnosis-master\data\灰度图_0_hp_汇总\training'
-# label_path = r'D:\浏览器下载\code\0noise\training\length_label.mat'
-df_source_train = pd.read_excel(r'D:\浏览器下载\wdcnn_bearning_fault_diagnosis-master\data\灰度图_0_hp_汇总\training对应.xls',usecols=["image", "label"])
+Scouce_train_path = r''
+# label_path = r''
+df_source_train = pd.read_excel()
 label_duiying_source_train = df_source_train.values
 # 获取第二列数据，并转化为数组
 Scouce_trainDataset = MyDataset(Scouce_train_path,label_duiying_source_train,transform=transform)
@@ -79,9 +79,9 @@ Scouce_train_loader = DataLoader(
 )
 
 #目标域训练数据构建
-Target_train_path = r'D:\浏览器下载\wdcnn_bearning_fault_diagnosis-master\data\灰度图_1_hp_汇总\training'
-# label_path = r'D:\浏览器下载\code\0noise\training\length_label.mat'
-df_target_train = pd.read_excel(r'D:\浏览器下载\wdcnn_bearning_fault_diagnosis-master\data\灰度图_1_hp_汇总\training对应.xls',usecols=["image", "label"])
+Target_train_path = r''
+# label_path = r''
+df_target_train = pd.read_excel()
 label_duiying_target_train = df_target_train.values
 # 获取第二列数据，并转化为数组
 Target_trainDataset = MyDataset(Target_train_path,label_duiying_target_train,transform=transform)
