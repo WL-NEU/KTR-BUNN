@@ -28,16 +28,9 @@ from tqdm import *
 import warnings
 import logging
 import argparse
-# domain_train = sys.argv[1]
-# domain_test = sys.argv[2]
-# setGPU(sys.argv[3])
-# store_name = sys.argv[4]
-# loss_MSE_value = float(sys.argv[5])
-# three_domain_loss_value = float(sys.argv[6])
+
 setGPU("0")
-store_name = "A_C"
-loss_MSE_value = float(0.2)
-# three_domain_loss_value = float(0.2)
+
 
 
 # ===== Define argments =====
@@ -49,15 +42,12 @@ def parse_args():
 
     # dataset information
     parser.add_argument("--datadir", type=str, default="./datasets", help="data directory")
-    parser.add_argument("--source_dataname", type=str, default="CWRU", choices=["CWRU", "PU"], help="choice a dataset")
-    parser.add_argument("--target_dataname", type=str, default="CWRU", choices=["CWRU", "PU"], help="choice a dataset")
+    parser.add_argument("--source_dataname", type=str, default="CWRU", choices=["CWRU", "MFL"], help="choice a dataset")
+    parser.add_argument("--target_dataname", type=str, default="CWRU", choices=["CWRU", "MFL"], help="choice a dataset")
     parser.add_argument("--s_load", type=int, default=3, help="source domain working condition")
     parser.add_argument("--t_load", type=int, default=2, help="target domain working condition")
-    # parser.add_argument("--s_label_set", type=list, default=[0,1,2,3,4,5], help="source domain label set")
     parser.add_argument("--s_label_set", type=list, default=[0,1, 2, 3, 4, 5,6], help="source domain label set")
     parser.add_argument("--t_label_set", type=list, default=[0,1,2,3,4,5,6,7,8,9], help="target domain label set")
-    parser.add_argument("--val_rat", type=float, default=0.3, help="training-validation rate")
-    parser.add_argument("--test_rat", type=float, default=0.5, help="validation-test rate")
     parser.add_argument("--seed", type=int, default="29")
 
     # pre-processing
@@ -307,7 +297,7 @@ while k <150:
 
 
         with OptimizerManager([optimizer_cls_upper, optimizer_discriminator_p,optimizer_feature_extractor_fix]):
-            loss = loss_MSE_value * loss_MSE_upper + d1_upper + ce_upper +ce_ep*3+u_loss
+            loss = loss_MSE_value * loss_MSE_upper + d1_upper + ce_upper +ce_ep+u_loss
             loss.backward()
 
 
@@ -405,7 +395,7 @@ while k <150:
 
 
         with OptimizerManager([optimizer_cls_down, optimizer_feature_extractor_nofix,optimizer_discriminator,optimizer_three_domain_discriminator]):
-            loss = loss_MSE_value * loss_MSE_down  + ce_down +  0.3 * adv_loss + 0.1 * entropy +  0.2*se_loss +ce_ep*3+u_loss
+            loss = loss_MSE_value * loss_MSE_down  + ce_down + weight_adv * adv_loss +weight_ent* entropy +  weight_se*se_loss +ce_ep+u_loss*weight_u
 
             loss.backward()
 
