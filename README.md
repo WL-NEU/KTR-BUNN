@@ -1,2 +1,2 @@
 # KTR-BUNN
-Bi-unbiased open-set fault transfer diagnosis
+Bi-unbiased Bi-Unbiased Neural Network with Knowledge Transfer and Reinforcement for open-set fault transfer diagnosis
